@@ -1,45 +1,35 @@
-import numpy as np
 from algorithm import *
 
-ch1 = Chromosome(30, 10)
-ch2 = Chromosome(10, 0)
-ch3 = Chromosome(-20, 7.5)
-ch4 = Chromosome(-25, 10)
+accuracy = 0.001
+previousBestFitness = 100  # random, it doesn't matter
+ch = Chromosome(0, 0)
+previousBestChromosome = ch  # random, it doesn't matter
 
-pop0 = Population(0)
-pop0.add_chromosome(ch1)
-pop0.add_chromosome(ch2)
-pop0.add_chromosome(ch3)
-pop0.add_chromosome(ch4)
+# initial population
+pop = Population(0)
+pop.set_random_chromosomeList(ch.xMin, ch.xMax, ch.yMin, ch.yMax)
+pop.selection()
+currentBestFitness = pop.best_chromosome_after_selection().fitness()
+currentBestChromosome = pop.best_chromosome_after_selection()
+pop.crossover()
+pop.mutations()
+chromosomeListActual = pop.get_chromosomeList()
 
-pop0.selection()
-afterSelection = pop0.get_chromosomeList()
-for i in afterSelection:
-    print(i.get_info())
-print()
+k = 0
+while (abs(currentBestFitness - previousBestFitness) > accuracy):
+    previousBestFitness = currentBestFitness
+    previousBestChromosome = currentBestChromosome
+    k += 1
+    pop = Population(k)
+    pop.add_chromosomeList(chromosomeListActual)
+    pop.selection()
+    currentBestFitness = pop.best_chromosome_after_selection().fitness()
+    currentBestChromosome = pop.best_chromosome_after_selection()
+    pop.crossover()
+    pop.mutations()
+    chromosomeListActual = pop.get_chromosomeList()
 
-pop0.best_to_worst_order()
-newOrder = pop0.get_chromosomeList()
-for i in newOrder:
-    print(i.get_info())
-print()
-
-print(pop0.best_chromosome_after_selection().get_info(), '\n')
-
-pop0.crossover()
-afterCrossover = pop0.get_chromosomeList()
-for i in afterCrossover:
-    print(i.get_info())
-print()
-
-pop0.mutations()
-afterMutations = pop0.get_chromosomeList()
-for i in afterMutations:
-    print(i.get_info())
-print()
-
-pop0.set_random_chromosomeList(-30,30,-10,10)
-afterRand = pop0.get_chromosomeList()
-for i in afterRand:
-    print(i.get_info())
-print()
+print("The extremum (minimum) of our function is:", currentBestFitness)
+print("The coordinates in which we reach the minimum: ({0}, {1})".format(currentBestChromosome.X,
+                                                                         currentBestChromosome.Y))
+print("The number of the population: ", k)

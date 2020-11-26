@@ -2,6 +2,11 @@ import numpy as np
 
 
 class Chromosome:
+    xMin = -30
+    xMax = 30
+    yMin = -10
+    yMax = 10
+
     def __init__(self, X, Y):
         self.X = X
         self.Y = Y
@@ -13,10 +18,18 @@ class Chromosome:
         return self.X, self.Y, self.fitness()
 
     def gene_X_mutation(self):
-        self.X = self.X + np.random.uniform(-1, 1)
+        randNum = np.random.uniform(-1, 1)
+        if ((self.X + randNum >= self.xMin) and (self.X + randNum <= self.xMax)):  # to avoid extending beyond
+            self.X += randNum
+        else:
+            self.X -= randNum
 
     def gene_Y_mutation(self):
-        self.Y = self.Y + np.random.uniform(-1, 1)
+        randNum = np.random.uniform(-1, 1)
+        if ((self.Y + randNum >= self.yMin) and (self.Y + randNum <= self.yMax)):  # to avoid extending beyond
+            self.Y += randNum
+        else:
+            self.Y -= randNum
 
 
 class Population:
@@ -35,7 +48,8 @@ class Population:
 
     def set_random_chromosomeList(self, xMin, xMax, yMin, yMax):
         for i in range(0, 4):
-            self.chromosomeList[i] = (Chromosome(np.random.uniform(xMin,xMax),np.random.uniform(yMin,yMax)))
+            self.chromosomeList.append(Chromosome(np.random.uniform(xMin, xMax), np.random.uniform(yMin, yMax)))
+        self.chromosomeListOriginal = self.chromosomeList
 
     def get_chromosomeList(self):
         return self.chromosomeList
