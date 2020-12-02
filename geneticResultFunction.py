@@ -1,6 +1,6 @@
 from geneticAlgorithm import *
 
-accuracy = 0.001
+accuracy = 0.0001
 previousBestFitness = 100  # random, it doesn't matter
 ch = Chromosome(0, 0)
 previousBestChromosome = ch  # random, it doesn't matter
@@ -29,9 +29,9 @@ while (abs(currentBestFitness - previousBestFitness) > accuracy):
     pop.mutations()
     chromosomeListActual = pop.get_chromosomeList()
 
-geneticResult = currentBestFitness
+geneticResult = (currentBestFitness, currentBestChromosome.X, currentBestChromosome.Y)
 
-print("The extremum (minimum) of our function is:", geneticResult)
-print("The coordinates in which we reach the minimum: ({0}, {1})".format(currentBestChromosome.X,
-                                                                         currentBestChromosome.Y))
-print("The number of the population: ", k)
+#print("The extremum (minimum) of our function is:", currentBestFitness)
+#print("The coordinates in which we reach the minimum: ({0}, {1})".format(currentBestChromosome.X,
+#                                                                         currentBestChromosome.Y))
+#print("The number of the population: ", k)
