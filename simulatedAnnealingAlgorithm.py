@@ -42,7 +42,7 @@ def Energy(x, y):
     return -x * (np.sin(np.sqrt(abs(x)))) + y * np.cos(np.sqrt(abs(y)))
 
 
-def Annealing():
+def annealing():
     T = Tmax
     currentStateX = np.random.uniform(xMin, xMax)
     currentStateY = np.random.uniform(yMin, yMax)

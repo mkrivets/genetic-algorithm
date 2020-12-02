@@ -18,14 +18,14 @@ class Chromosome:
         return self.X, self.Y, self.fitness()
 
     def gene_X_mutation(self):
-        randNum = np.random.uniform(-1, 1)
+        randNum = np.random.uniform(self.xMin/2, self.xMax/2)
         if ((self.X + randNum >= self.xMin) and (self.X + randNum <= self.xMax)):  # to avoid extending beyond
             self.X += randNum
         else:
             self.X -= randNum
 
     def gene_Y_mutation(self):
-        randNum = np.random.uniform(-1, 1)
+        randNum = np.random.uniform(self.yMin/2, self.yMax/2)
         if ((self.Y + randNum >= self.yMin) and (self.Y + randNum <= self.yMax)):  # to avoid extending beyond
             self.Y += randNum
         else:
