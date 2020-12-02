@@ -18,18 +18,24 @@ class Chromosome:
         return self.X, self.Y, self.fitness()
 
     def gene_X_mutation(self):
-        randNum = np.random.uniform(self.xMin/2, self.xMax/2)
+        randNum = np.random.uniform(self.xMin / 3, self.xMax / 3)
         if ((self.X + randNum >= self.xMin) and (self.X + randNum <= self.xMax)):  # to avoid extending beyond
             self.X += randNum
         else:
-            self.X -= randNum
+            if ((self.X + (randNum / 3) >= self.xMin) and (self.X + (randNum / 3) <= self.xMax)):
+                self.X += randNum / 3
+            else:
+                self.X -= randNum
 
     def gene_Y_mutation(self):
-        randNum = np.random.uniform(self.yMin/2, self.yMax/2)
+        randNum = np.random.uniform(self.yMin / 3, self.yMax / 3)
         if ((self.Y + randNum >= self.yMin) and (self.Y + randNum <= self.yMax)):  # to avoid extending beyond
             self.Y += randNum
         else:
-            self.Y -= randNum
+            if ((self.Y + (randNum / 3) >= self.yMin) and (self.Y + (randNum / 3) <= self.yMax)):
+                self.Y += randNum / 3
+            else:
+                self.Y -= randNum
 
 
 class Population:
